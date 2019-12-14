@@ -1,0 +1,27 @@
+$--primary-color: #5E35B1;
+$--color-primary-light: #9162E4;
+$--color-primary-dark: #280680;
+
+$--color-white: #fff;
+$--color-gray: #eee;
+$--color-text: #666;
+
+$--color-success: #67c23a;
+$--color-warning: #e6a23c;
+$--color-danger: #f56c6c;
+
+$--text-color: rgba(50, 50, 51, 1);
+$--text-color-light-1: rgba(100, 101, 102, 1);
+$--text-color-light-2: rgba(150, 151, 153, 1);
+$--text-color-light-3: rgba(200, 201, 204, 1);
+
+$--line-color: rgba(225, 227, 230, 1);
+$--line-color-light-1: rgba(232, 234, 237, 1);
+$--line-color-light-2: rgba(232, 234, 237, 1);
+$--line-color-light-3: rgba(247, 249, 252, 1);
+
+$--bg-color: rgba(235, 237, 240, 1);
+$--bg-color-light-1: rgba(248, 249, 250, 1);
+/* Transition
+-------------------------- */
+$--all-transition: all .3s cubic-bezier(.645, .045, .355, 1) !default;

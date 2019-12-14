@@ -1,0 +1,205 @@
+@charset "UTF-8";
+@import 'var.scss';
+
+body {
+  overflow-x: hidden;
+  padding: 0;
+  margin: 0;
+  line-height: 1.6;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  opacity: .9;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* 标题 */
+h1, h2, h3, h4, h5 {
+  margin: 0;
+  font-weight: 400
+}
+
+h1, .h1 {
+  font-size: 26px;
+  //margin-bottom: 12px
+}
+
+h2, .h2 {
+  font-size: 22px;
+  //margin-bottom: 8px
+}
+
+h3, .h3 {
+  font-size: 20px;
+  //margin-bottom: 6px
+}
+
+h4, .h4 {
+  font-size: 18px;
+  //margin-bottom: 4px
+}
+
+h5, .h6 {
+  font-size: 16px;
+  //margin-bottom: 3px
+}
+
+.text-regular {
+  font-size: 14px
+}
+
+.text-small {
+  font-size: 13px
+}
+
+.text-smaller {
+  font-size: 12px
+}
+
+.color-info {
+  color: #909399;
+}
+
+/* 普通文本 */
+p {
+  margin: 8px 0;
+  word-wrap: break-word;
+  color: $--color-text;
+}
+
+p:first-child {
+  margin-top: 0 !important
+}
+
+p:last-child {
+  margin-bottom: 0 !important;
+}
+
+.clearfix {
+  *zoom: 1;
+}
+
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+
+.clearfix:after {
+  clear: both
+}
+
+/* 图片 */
+img {
+  vertical-align: middle;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.img > a {
+  display: inline-block
+}
+
+/* 对齐 */
+.text-left {
+  text-align: left
+}
+
+.text-center {
+  text-align: center
+}
+
+.text-right {
+  text-align: right
+}
+
+.fl {
+  float: left
+}
+
+.fr {
+  float: right
+}
+
+.inline {
+  display: inline-block
+}
+
+.block {
+  display: block;
+}
+
+.mr-sm {
+  margin-right: 8px
+}
+
+.mb-sm {
+  margin-bottom: 8px
+}
+
+.hand {
+  cursor: pointer
+}
+
+.m-t-md {
+  margin-top: 20px;
+}
+
+.m-t-sm {
+  margin-top: 10px;
+}
+
+.m-b-md {
+  margin-bottom: 20px;
+}
+
+.noselect {
+  user-select: none; /* Non-prefixed version, currently not supported by any browser */
+
+}
+
+.text-primary {
+  color: $--primary-color;
+}
+
+.text-red {
+  color: $--color-danger;
+}
+
+.text-color {
+  color: $--color-text;
+}
+
+.bg-color {
+  background-color: $--primary-color
+}
+
+.icon-hearts {
+  color: $--color-danger;
+}
+
+.f16 {
+  font-size: 16px;
+}
+
+.f18 {
+  font-size: 20px;
+}

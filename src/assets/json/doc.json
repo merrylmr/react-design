@@ -1,0 +1,12 @@
+{
+  "id": 1,
+  "name": "我是文档",
+  "width": 90,
+  "height": 54,
+  "unit": "mm",
+  "r": {
+    "background": {
+      "color": "#000"
+    }
+  }
+}

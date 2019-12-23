@@ -1,0 +1,263 @@
+
+{
+  "id": 1,
+  "layout": {
+    "items": [
+      {
+        "id": "IiyMh0CxAi",
+        "name": "IiyMh0Cx",
+        "type": "svg",
+        "group_id": "Lbp8TgCoL6",
+        "is_locked": false,
+        "opacity": 100,
+        "visible": true,
+        "flip": {
+          "x": false,
+          "y": false
+        },
+        "offset": {
+          "x": 58.08000183105469,
+          "y": 50.53998947143555
+        },
+        "pos": {
+          "x": 357.00390625,
+          "y": 150.49407958984375,
+          "width": 182.22722159730034,
+          "height": 182.22723687513954,
+          "rotate": 0,
+          "scale": {
+            "x": 1.001248470314837,
+            "y": 1.001248470314837
+          }
+        },
+        "r": {
+          "material_id": 1,
+          "html": "",
+          "link": "/material/01.svg",
+          "variable": {
+            "color-1": {
+              "type": "string",
+              "picker": "color",
+              "name": "颜色1",
+              "value": "#7469a1"
+            },
+            "color-2": {
+              "type": "string",
+              "picker": "color",
+              "name": "颜色2",
+              "value": "#383838"
+            }
+          }
+        }
+      },
+      {
+        "id": "qjJr4gl76O",
+        "name": "qjJr4gl7",
+        "type": "svg",
+        "group_id": "rm0bxZ8XD4",
+        "is_locked": false,
+        "opacity": 100,
+        "visible": true,
+        "flip": {
+          "x": false,
+          "y": false
+        },
+        "offset": {
+          "x": -0.00099945068359375,
+          "y": -0.001010894775390625
+        },
+        "pos": {
+          "x": 773.00390625,
+          "y": 314.49407958984375,
+          "width": 497.0968494465503,
+          "height": 497.0948442301543,
+          "rotate": 0,
+          "scale": {
+            "x": 1.0012484703148372,
+            "y": 1.0012484703148372
+          }
+        },
+        "r": {
+          "material_id": 2,
+          "html": "",
+          "link": "/material/107.svg",
+          "variable": {
+            "color-1": {
+              "type": "string",
+              "picker": "color",
+              "name": "颜色1",
+              "value": "#AB2849"
+            },
+            "color-2": {
+              "type": "string",
+              "picker": "color",
+              "name": "颜色2",
+              "value": "#F4BC33"
+            },
+            "color-3": {
+              "type": "string",
+              "picker": "color",
+              "name": "颜色3",
+              "value": "#318BA2"
+            }
+          }
+        }
+      },
+      {
+        "id": "dZmyZ4J7cq",
+        "name": "dZmyZ4J7",
+        "type": "text",
+        "group_id": "0O9icXJ4fa",
+        "is_locked": false,
+        "opacity": 100,
+        "visible": true,
+        "flip": {
+          "x": false,
+          "y": false
+        },
+        "pos": {
+          "x": 283.00390625,
+          "y": 355.49407958984375,
+          "width": 300.28026157747234,
+          "height": 40.037368210329646,
+          "rotate": 0,
+          "scale": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        "r": {
+          "type": "title",
+          "text": "双击修改文字",
+          "font": "heiti",
+          "fontSize": 260,
+          "color": "#000",
+          "bold": true,
+          "underline": false,
+          "align": "center",
+          "letterSpacing": 0,
+          "lineHeight": 1,
+          "italic": false
+        }
+      },
+      {
+        "id": "dBI5l3y6W1",
+        "name": "dBI5l3y6",
+        "type": "text",
+        "group_id": "kySk2ibeBm",
+        "is_locked": false,
+        "opacity": 100,
+        "visible": true,
+        "flip": {
+          "x": false,
+          "y": false
+        },
+        "pos": {
+          "x": 496.00390625,
+          "y": 473.49407958984375,
+          "width": 300.28026157747234,
+          "height": 34.03176297878019,
+          "rotate": 0,
+          "scale": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        "r": {
+          "type": "sub_title",
+          "text": "双击修改文字",
+          "font": "heiti",
+          "fontSize": 200,
+          "color": "#000",
+          "bold": true,
+          "underline": false,
+          "align": "center",
+          "letterSpacing": 0,
+          "lineHeight": 1,
+          "italic": false
+        }
+      },
+      {
+        "id": "fdg11sTx2N",
+        "name": "fdg11sTx",
+        "type": "image",
+        "group_id": "OQGwzwKSe1",
+        "is_locked": false,
+        "opacity": 100,
+        "visible": true,
+        "flip": {
+          "x": false,
+          "y": false
+        },
+        "pos": {
+          "x": 433.1440370387362,
+          "y": 287.16450342677643,
+          "width": 121.15106490809528,
+          "height": 91.11361079865017,
+          "rotate": 0,
+          "scale": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        "r": {
+          "item": {
+            "src": "https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2786560317,2322274005&fm=58&bpow=666&bpoh=403",
+            "width": 121,
+            "height": 91,
+            "cover": {
+              "x": 0,
+              "y": 0,
+              "zoom": 1.001248470314837
+            }
+          }
+        }
+      }
+    ],
+    "groups": [
+      {
+        "id": "Lbp8TgCoL6",
+        "name": "Lbp8TgCoL6",
+        "pos": {}
+      },
+      {
+        "id": "rm0bxZ8XD4",
+        "name": "rm0bxZ8XD4",
+        "pos": {}
+      },
+      {
+        "id": "0O9icXJ4fa",
+        "name": "0O9icXJ4fa",
+        "pos": {}
+      },
+      {
+        "id": "kySk2ibeBm",
+        "name": "kySk2ibeBm",
+        "pos": {}
+      },
+      {
+        "id": "OQGwzwKSe1",
+        "name": "OQGwzwKSe1",
+        "pos": {}
+      }
+    ]
+  },
+  "r": {
+    "background": {
+      "color": "#fff"
+    },
+    "guides": {
+      "enable": false,
+      "items": [
+        {
+          "val": 531,
+          "type": "vertical"
+        },
+        {
+          "type": "horizontal",
+          "val": 319
+        }
+      ]
+    }
+  }
+}

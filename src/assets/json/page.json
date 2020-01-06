@@ -32,7 +32,7 @@
         },
         "r": {
           "material_id": 1,
-          "html": "",
+          "html":"  <path fill=\"#ff0\" d=\"M149.08,232.18a90.64,90.64,0,1,1,90.64-90.64A90.74,90.74,0,0,1,149.08,232.18Z\"/> <path fill=\"#ff0\" d=\"M149.08,51.26A90.28,90.28,0,1,1,58.8,141.54a90.38,90.38,0,0,1,90.28-90.28m0-.72a91,91,0,1,0,91,91,91,91,0,0,0-91-91Z\"/>",
           "link": "/material/01.svg",
           "variable": {
             "color-1": {
@@ -79,7 +79,7 @@
         },
         "r": {
           "material_id": 2,
-          "html": "",
+          "html":"  <path fill=\"#ff0\" d=\"M149.08,232.18a90.64,90.64,0,1,1,90.64-90.64A90.74,90.74,0,0,1,149.08,232.18Z\"/> <path fill=\"#ff0\" d=\"M149.08,51.26A90.28,90.28,0,1,1,58.8,141.54a90.38,90.38,0,0,1,90.28-90.28m0-.72a91,91,0,1,0,91,91,91,91,0,0,0-91-91Z\"/>",
           "link": "/material/107.svg",
           "variable": {
             "color-1": {
@@ -165,7 +165,7 @@
         },
         "r": {
           "type": "sub_title",
-          "text": "双击修改文字",
+          "text": "<p>我是文本组件</p>",
           "font": "heiti",
           "fontSize": 200,
           "color": "#000",
@@ -202,7 +202,7 @@
         },
         "r": {
           "item": {
-            "src": "https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2786560317,2322274005&fm=58&bpow=666&bpoh=403",
+            "src": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578329752607&di=a634df8ed321670a1222d3bbfedff368&imgtype=0&src=http%3A%2F%2Fpicture.ik123.com%2Fuploads%2Fallimg%2F180412%2F12-1P412134126.jpg",
             "width": 121,
             "height": 91,
             "cover": {

@@ -3,28 +3,11 @@ import ImgComp from './elements/Img'
 import TextComp from './elements/Text'
 import SvgComp from './elements/Svg'
 
-// import pageData from 'src/assets/json/page.json'
+import pageData from '../assets/json/page.json'
 
 class Stage extends Component {
   state = {
-    pageData: {
-      id: '',
-      layout: {
-        items: [
-          {
-            'type': 'text'
-          },
-          {
-            'type': 'img'
-          },
-          {
-            type: 'svg'
-          }
-        ],
-        groups: [],
-        r: {}
-      }
-    }
+    pageData: pageData
   }
 
   componentDidMount() {
@@ -37,17 +20,19 @@ class Stage extends Component {
   render() {
     let items = this.state.pageData.layout.items
     const comps = items.map((item, index) =>
-      <div key={index}  className={item.type}>
+      <div key={index} data-type={item.type}
+           className='basic-comp'
+       style={{left:item.pos.x+'px',top:item.pos.y+'px'}}>
         {
           (() => {
             switch (item.type) {
               case 'text':
-                return <TextComp></TextComp>
-              case 'img':
-                return <ImgComp></ImgComp>
+                return <TextComp data={item}></TextComp>
+              case 'image':
+                return <ImgComp data={item}></ImgComp>
                 break
               case 'svg':
-                return <SvgComp></SvgComp>
+                return <SvgComp data={item}></SvgComp>
                 break
               default:
                 break

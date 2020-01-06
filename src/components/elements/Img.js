@@ -1,10 +1,17 @@
 import React, {Component} from 'react'
 
 class ImgComp extends Component {
+  constructor(props) {
+    super(props)
+  }
+  componentDidMount() {
+    console.log('this.data',this.props.data)
+  }
   render() {
+    let item=this.props.data.r.item
     return (
       <div>
-        <h1>我是img组件</h1>
+        <img width={item.width} height={item.height} src={item.src}/>
       </div>
     )
   }

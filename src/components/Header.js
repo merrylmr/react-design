@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
-import '../assets/scss/index.css'
+import '../assets/scss/index.scss'
 import {Layout, Button} from 'element-react'
+import {canvasToJSON} from '../assets/fabric/index'
 
 class AppHeader extends Component {
   render() {
@@ -15,7 +16,8 @@ class AppHeader extends Component {
           </Layout.Col>
           <Layout.Col span="6">
             <div className="right">
-              <Button type="primary">下载</Button>
+              <Button type="primary"
+                      onClick={this.clickHandle.bind(this)}>下载</Button>
             </div>
           </Layout.Col>
         </Layout.Row>
@@ -23,6 +25,10 @@ class AppHeader extends Component {
 
       </div>
     )
+  }
+
+  clickHandle() {
+    console.log('lalalal', canvasToJSON());
   }
 }
 

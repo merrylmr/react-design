@@ -3,26 +3,60 @@ import ImgComp from './elements/Img'
 import TextComp from './elements/Text'
 import SvgComp from './elements/Svg'
 
-import pageData from '../assets/json/page.json'
+import {getPageData} from '../api/index.js'
+import {renderComp} from '../assets/fabric/index'
 
 class Stage extends Component {
   state = {
-    pageData: pageData
+    pageData: {
+      r: {},
+      layout: {
+        items: [],
+        groups: []
+      }
+    }
   }
 
   componentDidMount() {
-    console.log('this.pageData', this.state.pageData)
+
   }
 
-  componentWillUnmount() {
+  async componentWillMount() {
+    console.log('componentWillUnmount---11111')
+    const data = await getPageData()
+    this.setState({
+      pageData: data
+    })
+    console.log('this.pageData', this.state.pageData)
+    console.log('componentWillUnmount--22222')
+
+    renderComp([{type: 'text'}, {type: 'img'}])
   }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (nextProps.content !== this.props.content) {
+  //     return true
+  //   } else {
+  //     return false
+  //   }
+  // }
+
+  // shouldComponentUpdate
+  // componentWillUpdate
+  // render
+  // componentDidUpdate
+
+
+  // componentWillReceiveProps
+
 
   render() {
+    console.log('render222222');
     let items = this.state.pageData.layout.items
     const comps = items.map((item, index) =>
       <div key={index} data-type={item.type}
            className='basic-comp'
-       style={{left:item.pos.x+'px',top:item.pos.y+'px'}}>
+           style={{left: item.pos.x + 'px', top: item.pos.y + 'px'}}>
         {
           (() => {
             switch (item.type) {
@@ -30,10 +64,8 @@ class Stage extends Component {
                 return <TextComp data={item}></TextComp>
               case 'image':
                 return <ImgComp data={item}></ImgComp>
-                break
               case 'svg':
                 return <SvgComp data={item}></SvgComp>
-                break
               default:
                 break
             }
@@ -45,10 +77,14 @@ class Stage extends Component {
       <div className="tool-main-panel">
         <div className="tool-main-panel__toolbar"></div>
         <div className="tool-main-panel__body">
-          <div id="stage" className="doc-panel">
+          <canvas
+            id="stage"
+            width='600px'
+            height='500px'
+            fill="#fff"
+            className="doc-panel">
             {/*渲染页面内容*/}
-            {comps}
-          </div>
+          </canvas>
         </div>
       </div>
     )

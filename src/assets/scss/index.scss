@@ -13,6 +13,7 @@ $header-h: 60px;
   float: left;
   background-color: #fff;
   border-right: 1px solid $border-color;
+
   .sidebar-menu {
     width: 60px;
     height: 100%;
@@ -22,6 +23,7 @@ $header-h: 60px;
     position: relative;
     z-index: 3;
   }
+
   .sidebar-menu__panel {
     float: left;
     border-left: 1px solid $border-color;
@@ -64,4 +66,19 @@ $header-h: 60px;
   position: relative;
   //background-color: #fff;
   box-shadow: 0 3px 16px rgba(154, 156, 158, .2);
+}
+
+.tool-main-panel__toolbar {
+  height: 44px;
+  background: #fff;
+}
+
+.tool-bar {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.tool-item {
+  margin: 0 10px;
 }

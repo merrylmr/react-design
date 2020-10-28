@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import '../assets/scss/index.scss'
 import {Layout, Button} from 'element-react'
-import {canvasToJSON} from '../assets/fabric/index'
 
 class AppHeader extends Component {
   render() {
@@ -28,7 +27,7 @@ class AppHeader extends Component {
   }
 
   clickHandle() {
-    console.log('lalalal', canvasToJSON());
+    console.log('lalalal');
   }
 }
 

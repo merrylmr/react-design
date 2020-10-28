@@ -1,36 +1,55 @@
 import React, {Component} from 'react'
-import ImgComp from './elements/Img'
-import TextComp from './elements/Text'
-import SvgComp from './elements/Svg'
-
 import {getPageData} from '../api/index.js'
-import {renderComp} from '../assets/fabric/index'
+import XFabric from '../assets/fabric/index'
+import Tool from './Tool.js'
 
 class Stage extends Component {
-  state = {
-    pageData: {
-      r: {},
-      layout: {
-        items: [],
-        groups: []
-      }
+  constructor(props) {
+    super(props);
+    this.state = {
+      pageData: {
+        r: {},
+        layout: {
+          items: [],
+          groups: []
+        }
+      },
+      selectedItems: [],
+      instance: null
     }
   }
 
-  componentDidMount() {
 
+  componentDidMount() {
+    let instance = new XFabric('stage');
+    instance.loadJSON();
+    // 选中元素
+    instance.canvas.on('selection:created', (objects) => {
+      console.log('object:selected', objects);
+      this.setState({
+        selectedItems: objects.selected,
+      })
+    })
+    instance.canvas.on('after:render', () => {
+      this.setState((state) => ({
+        instance: instance
+      }))
+      console.log('lalalal')
+    })
+
+
+    console.log('instance--------', instance);
+    // this.instance = instance;
   }
 
   async componentWillMount() {
     console.log('componentWillUnmount---11111')
-    const data = await getPageData()
-    this.setState({
-      pageData: data
-    })
+    // const data = await getPageData()
+    // this.setState({
+    //   pageData: data
+    // })
     console.log('this.pageData', this.state.pageData)
     console.log('componentWillUnmount--22222')
-
-    renderComp([{type: 'text'}, {type: 'img'}])
   }
 
   // shouldComponentUpdate(nextProps, nextState) {
@@ -49,39 +68,25 @@ class Stage extends Component {
 
   // componentWillReceiveProps
 
+  changed(v, attr) {
+    console.log('stage-change', v, this.state.instance);
+    this.state.instance.setActiveStyle(attr, v[attr])
+  }
 
   render() {
-    console.log('render222222');
-    let items = this.state.pageData.layout.items
-    const comps = items.map((item, index) =>
-      <div key={index} data-type={item.type}
-           className='basic-comp'
-           style={{left: item.pos.x + 'px', top: item.pos.y + 'px'}}>
-        {
-          (() => {
-            switch (item.type) {
-              case 'text':
-                return <TextComp data={item}></TextComp>
-              case 'image':
-                return <ImgComp data={item}></ImgComp>
-              case 'svg':
-                return <SvgComp data={item}></SvgComp>
-              default:
-                break
-            }
-          })()
-        }
-      </div>
-    )
     return (
       <div className="tool-main-panel">
-        <div className="tool-main-panel__toolbar"></div>
+        <div className="tool-main-panel__toolbar">
+          <Tool
+            data={this.state.selectedItems}
+            changed={this.changed.bind(this)}
+          ></Tool>
+        </div>
         <div className="tool-main-panel__body">
           <canvas
             id="stage"
             width='600px'
             height='500px'
-            fill="#fff"
             className="doc-panel">
             {/*渲染页面内容*/}
           </canvas>

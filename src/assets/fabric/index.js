@@ -1,10 +1,11 @@
 import {fabric} from "fabric";
 // 初始化配置
 fabric.Object.prototype.transparentCorners = false;
-
+const primaryColor = '#20a0ff';
 class XFabric {
   constructor(id) {
     this.canvas = new fabric.Canvas(id);
+
   }
 
   renderCanvas() {
@@ -25,6 +26,83 @@ class XFabric {
       stroke: "#880E4F",
     })
     this.canvas.add(text);
+  }
+
+  addRect() {
+    const rect = new fabric.Rect({
+      left: 300,
+      top: 300,
+      fill: primaryColor,
+      width: 50,
+      height: 50,
+      opacity: 0.8
+    })
+    this.canvas.add(rect);
+  }
+
+  addCircle() {
+    const circle = new fabric.Circle({
+      left: 300,
+      top: 300,
+      fill: primaryColor,
+      radius: 50,
+      opacity: 0.8
+    })
+    this.canvas.add(circle);
+  }
+
+  addTriangle() {
+    this.canvas.add(new fabric.Triangle({
+      left: 300,
+      top: 300,
+      fill: primaryColor,
+      width: 50,
+      height: 50,
+      opacity: 0.8
+    }))
+  }
+
+  addLine() {
+    this.canvas.add(new fabric.Line([50, 100, 200, 200], {
+      left: 300,
+      top: 300,
+      stroke: primaryColor
+    }));
+  }
+
+  addPolygon() {
+    this.canvas.add(new fabric.Polygon([
+      {x: 185, y: 0},
+      {x: 250, y: 100},
+      {x: 385, y: 170},
+      {x: 0, y: 245}], {
+      left: 0,
+      top: 0,
+      fill: primaryColor
+    }));
+  }
+
+  addText(item) {
+    const text = new fabric.Textbox(item.value, {
+      fontSize: item.fontSize,
+      left: 0,
+      top: 0,
+      originX: 'left',
+      hasRotatingPoint: true,
+      centerTransform: true
+    })
+    this.canvas.add(text);
+  }
+
+  addImage(url) {
+    fabric.Image.fromURL(url, (img) => {
+      img.set({
+        left: 0,
+        top: 0,
+      })
+        .scale(.2) // todo:需要优化
+      this.canvas.add(img);
+    })
   }
 
   loadJSON() {

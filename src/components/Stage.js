@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import {getPageData} from '../api/index.js'
-import XFabric from '../assets/fabric/index'
 import Tool from './Tool.js'
+import PropTypes from 'prop-types'
+
 
 class Stage extends Component {
   constructor(props) {
@@ -19,38 +19,6 @@ class Stage extends Component {
     }
   }
 
-
-  componentDidMount() {
-    let instance = new XFabric('stage');
-    instance.loadJSON();
-    // 选中元素
-    instance.canvas.on('selection:created', (objects) => {
-      console.log('object:selected', objects);
-      this.setState({
-        selectedItems: objects.selected,
-      })
-    })
-    instance.canvas.on('after:render', () => {
-      this.setState((state) => ({
-        instance: instance
-      }))
-      console.log('lalalal')
-    })
-
-
-    console.log('instance--------', instance);
-    // this.instance = instance;
-  }
-
-  async componentWillMount() {
-    console.log('componentWillUnmount---11111')
-    // const data = await getPageData()
-    // this.setState({
-    //   pageData: data
-    // })
-    console.log('this.pageData', this.state.pageData)
-    console.log('componentWillUnmount--22222')
-  }
 
   // shouldComponentUpdate(nextProps, nextState) {
   //   if (nextProps.content !== this.props.content) {
@@ -70,7 +38,7 @@ class Stage extends Component {
 
   changed(v, attr) {
     console.log('stage-change', v, this.state.instance);
-    this.state.instance.setActiveStyle(attr, v[attr])
+    this.props.instance.setActiveStyle(attr, v[attr])
   }
 
   render() {
@@ -96,4 +64,11 @@ class Stage extends Component {
   }
 }
 
+Stage.prototypes = {
+  instance: PropTypes.object
+}
+
+Stage.defaultProps = {
+  instance: {}
+}
 export default Stage

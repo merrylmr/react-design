@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Select, ColorPicker} from 'element-react'
 
+
 class Tool extends Component {
   constructor(props) {
     super(props);
@@ -29,7 +30,7 @@ class Tool extends Component {
   componentWillReceiveProps(nextProps, nextContext) {
     console.log('componentWillReceiveProps--111', nextProps);
     this.setState({
-      selectedItem: nextProps.data && nextProps.data[0] || {},
+      selectedItem: (nextProps.data && nextProps.data[0]) || {},
       color: "#ccc"
     })
   }

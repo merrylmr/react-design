@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Select, ColorPicker, Button} from 'element-react'
+import {Select, ColorPicker, Popover, Slider} from 'element-react'
 import PropTypes from 'prop-types'
 
 
@@ -29,6 +29,7 @@ class Tool extends Component {
   }
 
   changed(attr, v) {
+    console.log('tool-changed---', attr, v);
     this.props.changed({
       attr, v
     })
@@ -43,19 +44,60 @@ class Tool extends Component {
   }
 
   render() {
-    const selectedItem = (this.props.data && this.props.data[0])
+    const selectedItem =
+      (this.props.data && this.props.data[0])
       || {
-        fill: ''
+        fill: 'rgba(0,0,0,0.3)',
+        shadow: {
+          color: '',
+          blur: 10,
+          offsetX: 10,
+          offsetY: 10,
+          affectStroke: false,
+          nonScaling: false
+        }
       };
 
     const CommonTool = (props) => {
       return (
         <React.Fragment>
           <div className="tool-item">
-            <i className="iconfont icon-toumingdu"></i>
+            <Popover
+              placement="bottom"
+              width="300"
+              trigger="click"
+              content={(
+                <div className="operate-item">
+                  <div className="operate-item__label">透明度</div>
+                  <div className="operate-item__content">
+                    <Slider
+                      min={0}
+                      max={1}
+                      step={0.01}
+                    />
+                  </div>
+                </div>
+              )}
+            >
+              <i className="iconfont icon-toumingdu"></i>
+            </Popover>
           </div>
           <div className="tool-item">
-            <i className="iconfont icon-yinying"></i>
+            <Popover
+              placement="bottom"
+              width="300"
+              trigger="click"
+              content={(
+                <div className="operate">
+                  <div className="operate-item">
+                    颜色
+                    <ColorPicker
+                    ></ColorPicker>
+                  </div>
+                </div>
+              )}>
+              <i className="iconfont icon-yinying"></i>
+            </Popover>
           </div>
           <div className="tool-item"
                onClick={this.deleteItem.bind(this)}>
@@ -124,7 +166,7 @@ class Tool extends Component {
         return (
           <React.Fragment>
             <CompBar changed={this.changed.bind(this)}></CompBar>
-            <CommonTool></CommonTool>
+            {/*<CommonTool changed={this.changed.bind(this)}></CommonTool>*/}
           </React.Fragment>
         )
       } else {

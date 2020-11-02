@@ -234,7 +234,15 @@ class XFabric {
 
   setActiveStyle(styleName, value, object) {
     object = object || this.canvas.getActiveObject();
+    console.log('styleName', styleName, value);
     if (!object) return;
+    switch (styleName) {
+      case 'opacity':
+        // value = value / 100
+        break;
+      default:
+        break;
+    }
     if (object.setSelectionStyles && object.isEditing) {
       var style = {};
       style[styleName] = value;

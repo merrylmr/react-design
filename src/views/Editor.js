@@ -91,7 +91,12 @@ class Editor extends Component {
 
   changed({attr, v}) {
     console.log('editor', v);
-    const selectedItem = this.state.selectedItems[0];
+
+
+    const selectedItem = this.state.selectedItems[0]
+    //  渲染
+    this.state.instance.setActiveStyle(attr, v, selectedItem)
+
     // selectedItem[attr] = v;
     // this.setState((state) => {
     //   let selectedItems = state.selectedItems
@@ -99,8 +104,6 @@ class Editor extends Component {
     //     selectedItems: selectedItems.splice(0, 1, selectedItem)
     //   }
     // })
-    //  渲染
-    this.state.instance.setActiveStyle(attr, v, selectedItem)
   }
 
   render() {

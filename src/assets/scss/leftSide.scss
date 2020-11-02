@@ -13,6 +13,8 @@
 }
 
 .panel {
+  display: flex;
+  flex-direction: column;
 }
 
 .panel-header {
@@ -22,7 +24,9 @@
 }
 
 .panel-body {
-  padding: 10px;
+  padding: 9px;
+  overflow: auto;
+  height: calc(100vh - 100px);
 }
 
 .m-list {

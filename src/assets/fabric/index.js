@@ -131,7 +131,14 @@ class XFabric {
         "flipX": false,
         "flipY": false,
         "opacity": 1,
-        "shadow": null,
+        "shadow": {
+          "color": "rgba(0,0,0,0.3)",
+          "blur": 10,
+          "offsetX": 10,
+          "offsetY": 10,
+          "affectStroke": false,
+          "nonScaling": false
+        },
         "visible": true,
         "backgroundColor": "",
         "fillRule": "nonzero",
@@ -228,7 +235,7 @@ class XFabric {
   setActiveStyle(styleName, value, object) {
     object = object || this.canvas.getActiveObject();
     if (!object) return;
-    if (object.setSelectionStyles) {
+    if (object.setSelectionStyles && object.isEditing) {
       var style = {};
       style[styleName] = value;
       object.setSelectionStyles(style);
@@ -237,6 +244,19 @@ class XFabric {
     }
     object.setCoords();
     this.canvas.requestRenderAll();
+  }
+
+  removeSelected() {
+    const activeObjects = this.canvas.getActiveObjects();
+    this.canvas.discardActiveObject()
+    if (activeObjects.length) {
+      this.canvas.remove.apply(this.canvas, activeObjects);
+    }
+  }
+
+  setCanvasBgColor(val) {
+    this.canvas.backgroundColor = val;
+    this.canvas.renderAll();
   }
 }
 

@@ -1,0 +1,51 @@
+{
+  "id": "2173951",
+  "name": "design",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "7092661",
+      "name": "倾斜",
+      "font_class": "qingxie",
+      "unicode": "e664",
+      "unicode_decimal": 58980
+    },
+    {
+      "icon_id": "8305040",
+      "name": "透明度",
+      "font_class": "toumingdu",
+      "unicode": "e690",
+      "unicode_decimal": 59024
+    },
+    {
+      "icon_id": "8877453",
+      "name": "阴影",
+      "font_class": "yinying",
+      "unicode": "e647",
+      "unicode_decimal": 58951
+    },
+    {
+      "icon_id": "9885843",
+      "name": "垃圾箱",
+      "font_class": "lajixiang",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "15588348",
+      "name": "文字",
+      "font_class": "wenzi1",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "1986972",
+      "name": "曲线",
+      "font_class": "quxian",
+      "unicode": "e61d",
+      "unicode_decimal": 58909
+    }
+  ]
+}

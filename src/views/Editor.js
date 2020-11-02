@@ -51,6 +51,11 @@ class Editor extends Component {
     }
   }
 
+  deleteItem() {
+    this.state.instance.removeSelected()
+    console.log('deleteItem1111')
+  }
+
   componentWillMount() {
 
   }
@@ -60,13 +65,42 @@ class Editor extends Component {
     instance.loadJSON();
     // 选中元素
     instance.canvas.on('selection:created', (objects) => {
+      console.log('selection:created-----11111', objects);
       this.setState({
         selectedItems: objects.selected,
+      })
+    })
+    // 选中区域更新
+    instance.canvas.on('selection:updated', (objects) => {
+      console.log('selection:update-----22222', objects);
+      this.setState({
+        selectedItems: objects.selected,
+      })
+    })
+    // 选中区域清除
+    instance.canvas.on('selection:cleared', (objects) => {
+      console.log('selection:cleared-----33333', objects);
+      this.setState({
+        selectedItems: [],
       })
     })
     this.setState((state) => ({
       instance: instance
     }))
+  }
+
+  changed({attr, v}) {
+    console.log('editor', v);
+    const selectedItem = this.state.selectedItems[0];
+    // selectedItem[attr] = v;
+    // this.setState((state) => {
+    //   let selectedItems = state.selectedItems
+    //   return {
+    //     selectedItems: selectedItems.splice(0, 1, selectedItem)
+    //   }
+    // })
+    //  渲染
+    this.state.instance.setActiveStyle(attr, v, selectedItem)
   }
 
   render() {
@@ -79,7 +113,12 @@ class Editor extends Component {
             addText={this.addText.bind(this)}
             addEle={this.addEle.bind(this)}/>
           <RightSideBar/>
-          <Stage instance={this.state.instance}/>
+          <Stage
+            instance={this.state.instance}
+            selectedItems={this.state.selectedItems}
+            deleteItem={this.deleteItem.bind(this)}
+            changed={this.changed.bind(this)}
+          />
         </div>
       </div>
     )

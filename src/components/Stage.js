@@ -14,8 +14,6 @@ class Stage extends Component {
           groups: []
         }
       },
-      selectedItems: [],
-      instance: null
     }
   }
 
@@ -36,9 +34,10 @@ class Stage extends Component {
 
   // componentWillReceiveProps
 
-  changed(v, attr) {
-    console.log('stage-change', v, this.state.instance);
-    this.props.instance.setActiveStyle(attr, v[attr])
+
+  // 设置画布背景颜色
+  setCanvasBgColor(v) {
+    this.props.instance.setCanvasBgColor(v)
   }
 
   render() {
@@ -46,8 +45,10 @@ class Stage extends Component {
       <div className="tool-main-panel">
         <div className="tool-main-panel__toolbar">
           <Tool
-            data={this.state.selectedItems}
-            changed={this.changed.bind(this)}
+            data={this.props.selectedItems}
+            changed={this.props.changed}
+            deleteItem={this.props.deleteItem.bind(this)}
+            setCanvasBgColor={this.setCanvasBgColor.bind(this)}
           ></Tool>
         </div>
         <div className="tool-main-panel__body">
@@ -65,10 +66,13 @@ class Stage extends Component {
 }
 
 Stage.prototypes = {
-  instance: PropTypes.object
+  instance: PropTypes.object,
+  selectedItems: PropTypes.array,
+  changed: PropTypes.func
 }
 
 Stage.defaultProps = {
-  instance: {}
+  instance: {},
+  selectedItems: []
 }
 export default Stage

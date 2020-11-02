@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
-import {Select, ColorPicker} from 'element-react'
+import {Select, ColorPicker, Button} from 'element-react'
+import PropTypes from 'prop-types'
 
 
 class Tool extends Component {
@@ -10,7 +11,8 @@ class Tool extends Component {
       value: 40,
       color: '#20a0ff',
       selectedItem: {
-        fill: 'red'
+        fill: 'red',
+        type: 'text'
       }
     }
   }
@@ -19,57 +21,138 @@ class Tool extends Component {
     console.log('props', this.props.data);
   }
 
-  componentWillUpdate(nextProps, nextState, nextContext) {
-    console.log('componentWillUpdate', this.props.data);
+
+  // 父组件重新渲染，都会导致更新
+  // nextProps.data !==this.props.data
+  componentWillReceiveProps(nextProps) {
+
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('componentDidUpdate', prevProps, this.props.data)
-  }
-
-  componentWillReceiveProps(nextProps, nextContext) {
-    console.log('componentWillReceiveProps--111', nextProps);
-    this.setState({
-      selectedItem: (nextProps.data && nextProps.data[0]) || {},
-      color: "#ccc"
+  changed(attr, v) {
+    this.props.changed({
+      attr, v
     })
   }
 
-  changeFontColor(v) {
-    let selectedItem = this.state.selectedItem;
-    selectedItem.fill = v;
-    this.setState({
-      selectedItem: selectedItem
-    })
-    console.log('changeColor111', v, this.state.selectedItem);
-    this.props.changed(this.state.selectedItem, 'fill')
+  deleteItem() {
+    this.props.deleteItem()
+  }
+
+  setCanvasBgColor(v) {
+    this.props.setCanvasBgColor(v);
   }
 
   render() {
-    return (
-      <div className='tool-bar'>
-        {/*文字*/}
+    const selectedItem = (this.props.data && this.props.data[0])
+      || {
+        fill: ''
+      };
+
+    const CommonTool = (props) => {
+      return (
         <React.Fragment>
           <div className="tool-item">
-            <ColorPicker
-              value={this.state.selectedItem.fill}
-              onChange={this.changeFontColor.bind(this)}
-            ></ColorPicker>
+            <i className="iconfont icon-toumingdu"></i>
           </div>
           <div className="tool-item">
-            <Select value={this.state.value} placeholder="请选择">
-              {
-                this.state.options.map(el => {
-                  return <Select.Option key={el} label={el} value={el}/>
-                })
-              }
-            </Select>
+            <i className="iconfont icon-yinying"></i>
           </div>
-          <p>xxx:{this.state.selectedItem.fill}</p>
+          <div className="tool-item"
+               onClick={this.deleteItem.bind(this)}>
+            <i className="iconfont icon-lajixiang"></i>
+          </div>
         </React.Fragment>
+      )
+    }
+
+    const CompBar = (props) => {
+      switch (selectedItem.type) {
+        case'text':
+        case'textbox':
+          return (
+            <React.Fragment>
+              <div className="tool-item">
+                <ColorPicker
+                  value={selectedItem.fill}
+                  onChange={props.changed.bind(this, 'fill')}
+                ></ColorPicker>
+              </div>
+              <div className="tool-item">
+                <Select
+                  value={selectedItem.fontSize}
+                  placeholder="请选择"
+                  onChange={props.changed.bind(this, 'fontSize')}>
+                  {
+                    this.state.options.map(el => {
+                      return <Select.Option key={el} label={el} value={el}/>
+                    })
+                  }
+                </Select>
+              </div>
+            </React.Fragment>
+          )
+        case 'circle':
+        case 'rect':
+        case 'polygon':
+        case 'triangle':
+        case 'line':
+          return (
+            <React.Fragment>
+              <div className="tool-item">
+                填充：
+                <ColorPicker
+                  value={selectedItem.fill}
+                  onChange={props.changed.bind(this, 'fill')}
+                ></ColorPicker>
+              </div>
+              <div className="tool-item">
+                stroke：
+                <ColorPicker
+                  value={selectedItem.stroke}
+                  onChange={props.changed.bind(this, 'stroke')}
+                ></ColorPicker>
+              </div>
+            </React.Fragment>
+          )
+        default:
+          return ''
+      }
+    }
+
+    const ToolBar = () => {
+      if (this.props.data && this.props.data.length) {
+        return (
+          <React.Fragment>
+            <CompBar changed={this.changed.bind(this)}></CompBar>
+            <CommonTool></CommonTool>
+          </React.Fragment>
+        )
+      } else {
+        return (
+          <React.Fragment>
+            <div className="tool-item">
+              <ColorPicker
+                onChange={this.setCanvasBgColor.bind(this)}
+              ></ColorPicker>
+            </div>
+          </React.Fragment>
+        )
+      }
+    }
+
+
+    return (
+      <div className='tool-bar'>
+        <ToolBar></ToolBar>
       </div>
     )
   }
 }
 
+Tool.prototypes = {
+  data: PropTypes.array
+}
+Tool.defaultProps = {
+  data: []
+}
 export default Tool

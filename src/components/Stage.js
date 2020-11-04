@@ -47,6 +47,8 @@ class Stage extends Component {
           <Tool
             data={this.props.selectedItems}
             changed={this.props.changed}
+            setGroup={this.props.setGroup}
+            splitGroup={this.props.splitGroup}
             deleteItem={this.props.deleteItem.bind(this)}
             setCanvasBgColor={this.setCanvasBgColor.bind(this)}
           ></Tool>
@@ -68,7 +70,8 @@ class Stage extends Component {
 Stage.prototypes = {
   instance: PropTypes.object,
   selectedItems: PropTypes.array,
-  changed: PropTypes.func
+  changed: PropTypes.func,
+  setGroup:PropTypes.func
 }
 
 Stage.defaultProps = {

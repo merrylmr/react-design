@@ -235,6 +235,20 @@ class XFabric {
   setActiveStyle(styleName, value, object) {
     object = object || this.canvas.getActiveObject();
     console.log('styleName', styleName, value);
+    // shadow.color
+    // shadow.blur
+    let v = null
+    let key = ''
+    if (styleName.includes('.')) {
+      let keys = styleName.split('.')
+      v = object[keys[0]] || {}
+      v[keys[1]] = value;
+      key = keys[0]
+    } else {
+      v = value
+      key = styleName
+    }
+
     if (!object) return;
     switch (styleName) {
       case 'opacity':
@@ -245,10 +259,10 @@ class XFabric {
     }
     if (object.setSelectionStyles && object.isEditing) {
       var style = {};
-      style[styleName] = value;
+      style[key] = v;
       object.setSelectionStyles(style);
     } else {
-      object.set(styleName, value);
+      object.set(key, v);
     }
     object.setCoords();
     this.canvas.requestRenderAll();
@@ -265,6 +279,26 @@ class XFabric {
   setCanvasBgColor(val) {
     this.canvas.backgroundColor = val;
     this.canvas.renderAll();
+  }
+
+  setGroup(selected) {
+    this.removeSelected();
+    const group = new fabric.Group(selected);
+    this.canvas.add(group)
+    this.canvas.setActiveObject(group)
+  }
+
+  splitGroup() {
+    const group = this.canvas.getActiveObject();
+    // 获取组里面的对象
+    let objects = group.getObjects();
+    console.log('objects', objects);
+    // 必须:销毁组
+    group.destroy()
+    this.canvas.remove(group);
+    // 将对象添加到画布上
+    this.canvas.add(...objects);
+    this.canvas.setActiveObject(...objects)
   }
 }
 

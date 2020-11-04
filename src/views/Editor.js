@@ -9,7 +9,10 @@ class Editor extends Component {
   constructor() {
     super();
     this.state = {
-      instance: null
+      instance: null,
+      test: {
+        num: 100
+      }
     }
   }
 
@@ -106,6 +109,23 @@ class Editor extends Component {
     // })
   }
 
+  setGroup() {
+    console.log('setGroup----');
+    this.state.instance.setGroup(this.state.selectedItems);
+  }
+
+  splitGroup() {
+    console.log('splitGroup----2')
+    this.state.instance.splitGroup();
+  }
+
+  changedTest(v) {
+    console.log('changedTest', v);
+    this.setState((state) => {
+      state.test = {num: v}
+    })
+  }
+
   render() {
     return (
       <div id="editor">
@@ -115,12 +135,17 @@ class Editor extends Component {
             addImg={this.addImg.bind(this)}
             addText={this.addText.bind(this)}
             addEle={this.addEle.bind(this)}/>
-          <RightSideBar/>
+          <RightSideBar
+            test={this.state.test}
+            changed={this.changedTest.bind(this)}
+          />
           <Stage
             instance={this.state.instance}
             selectedItems={this.state.selectedItems}
             deleteItem={this.deleteItem.bind(this)}
             changed={this.changed.bind(this)}
+            setGroup={this.setGroup.bind(this)}
+            splitGroup={this.splitGroup.bind(this)}
           />
         </div>
       </div>

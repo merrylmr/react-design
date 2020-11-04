@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Select, ColorPicker, Popover, Slider} from 'element-react'
+import {Select, ColorPicker, Popover, Slider, Button} from 'element-react'
 import PropTypes from 'prop-types'
 
 
@@ -59,6 +59,14 @@ class Tool extends Component {
       };
 
     const CommonTool = (props) => {
+      const shadow = selectedItem.shadow || {
+        color: '#000',
+        blur: 0,
+        offsetX: 0,
+        offsetY: 0,
+        affectStroke: false,
+        nonScaling: false
+      }
       return (
         <React.Fragment>
           <div className="tool-item">
@@ -74,6 +82,8 @@ class Tool extends Component {
                       min={0}
                       max={1}
                       step={0.01}
+                      value={selectedItem.opacity}
+                      onChange={props.changed.bind(this, 'opacity')}
                     />
                   </div>
                 </div>
@@ -90,9 +100,50 @@ class Tool extends Component {
               content={(
                 <div className="operate">
                   <div className="operate-item">
-                    颜色
+                    <div className="operate-item__label">
+                      颜色
+                    </div>
                     <ColorPicker
+                      value={shadow.color}
+                      onChange={props.changed.bind(this, 'shadow.color')}
                     ></ColorPicker>
+                  </div>
+                  <div className="operate-item">
+                    <div className="operate-item__label">
+                      模糊
+                    </div>
+                    <div className="operate-item__content">
+                      <Slider
+                        value={shadow.blur}
+                        onChange={props.changed.bind(this, 'shadow.blur')}
+                      />
+                    </div>
+                  </div>
+                  <div className="operate-item">
+                    <div className="operate-item__label">
+                      x偏移
+                    </div>
+                    <div className="operate-item__content">
+                      <Slider
+                        value={shadow.offsetX}
+                        min={-100}
+                        max={100}
+                        onChange={props.changed.bind(this, 'shadow.offsetX')}
+                      />
+                    </div>
+                  </div>
+                  <div className="operate-item">
+                    <div className="operate-item__label">
+                      y偏移
+                    </div>
+                    <div className="operate-item__content">
+                      <Slider
+                        value={shadow.offsetY}
+                        min={-100}
+                        max={100}
+                        onChange={props.changed.bind(this, 'shadow.offsetY')}
+                      />
+                    </div>
                   </div>
                 </div>
               )}>
@@ -162,11 +213,35 @@ class Tool extends Component {
     }
 
     const ToolBar = () => {
+      let toolItems
       if (this.props.data && this.props.data.length) {
+        if (this.props.data.length === 1) {
+          // 组合
+          if (selectedItem.getObjects) {
+            toolItems =
+              <div className="tool-item">
+                <Button
+                  size="small"
+                  onClick={this.props.splitGroup.bind(this)}
+                >拆分组合</Button>
+              </div>
+          } else {
+            toolItems = <CompBar changed={this.changed.bind(this)}></CompBar>
+          }
+
+        } else {
+          toolItems =
+            <div className="tool-item">
+              <Button
+                size="small"
+                onClick={this.props.setGroup.bind(this)}>组合</Button>
+            </div>
+        }
+
         return (
           <React.Fragment>
-            <CompBar changed={this.changed.bind(this)}></CompBar>
-            {/*<CommonTool changed={this.changed.bind(this)}></CommonTool>*/}
+            {toolItems}
+            <CommonTool changed={this.changed.bind(this)}></CommonTool>
           </React.Fragment>
         )
       } else {
@@ -192,7 +267,9 @@ class Tool extends Component {
 }
 
 Tool.prototypes = {
-  data: PropTypes.array
+  data: PropTypes.array,
+  setGroup: PropTypes.func,
+  splitGroup: PropTypes.func,
 }
 Tool.defaultProps = {
   data: []

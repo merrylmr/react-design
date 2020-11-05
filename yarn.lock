@@ -4104,7 +4104,7 @@ electron-to-chromium@^1.3.378, electron-to-chromium@^1.3.571:
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.583.tgz#47a9fde74740b1205dba96db2e433132964ba3ee"
   integrity sha512-L9BwLwJohjZW9mQESI79HRzhicPk1DFgM+8hOCfGgGCFEcA3Otpv7QK6SGtYoZvfQfE3wKLh0Hd5ptqUFv3gvQ==
 
-element-react@^1.4.34:
+element-react@^1.4.33:
   version "1.4.34"
   resolved "https://registry.yarnpkg.com/element-react/-/element-react-1.4.34.tgz#e27cc0ca31f86fed46fe46fbc8fd330c156c383c"
   integrity sha512-O9OlLAhlRmfC5s2AQTB99gOn/DZICs0nHdEB96IKvl/OA84ZVHtsUdD7b0lo8nL8S7h9/gDJ+0TPZV02QzwZQw==

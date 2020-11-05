@@ -13,20 +13,20 @@ class Tool extends Component {
       selectedItem: {
         fill: 'red',
         type: 'text'
-      }
+      },
+      activeType: 'canvas' // canvas/text/img/group/items/shape
     }
   }
 
   componentDidMount() {
-    console.log('props', this.props.data);
   }
 
 
   // 父组件重新渲染，都会导致更新
   // nextProps.data !==this.props.data
-  componentWillReceiveProps(nextProps) {
-
-  }
+  // componentWillReceiveProps(nextProps) {
+  //
+  // }
 
   changed(attr, v) {
     console.log('tool-changed---', attr, v);
@@ -57,8 +57,9 @@ class Tool extends Component {
           nonScaling: false
         }
       };
-
+    // 选中组件之后:公共工具条
     const CommonTool = (props) => {
+      const {activeType} = props;
       const shadow = selectedItem.shadow || {
         color: '#000',
         blur: 0,
@@ -68,7 +69,8 @@ class Tool extends Component {
         nonScaling: false
       }
       return (
-        <React.Fragment>
+        <div
+          className={`tool-list ${activeType !== 'canvas' ? 'is-active' : ''}`}>
           <div className="tool-item">
             <Popover
               placement="bottom"
@@ -154,107 +156,176 @@ class Tool extends Component {
                onClick={this.deleteItem.bind(this)}>
             <i className="iconfont icon-lajixiang"></i>
           </div>
-        </React.Fragment>
+        </div>
       )
     }
 
-    const CompBar = (props) => {
-      switch (selectedItem.type) {
-        case'text':
-        case'textbox':
-          return (
-            <React.Fragment>
-              <div className="tool-item">
-                <ColorPicker
-                  value={selectedItem.fill}
-                  onChange={props.changed.bind(this, 'fill')}
-                ></ColorPicker>
-              </div>
-              <div className="tool-item">
-                <Select
-                  value={selectedItem.fontSize}
-                  placeholder="请选择"
-                  onChange={props.changed.bind(this, 'fontSize')}>
-                  {
-                    this.state.options.map(el => {
-                      return <Select.Option key={el} label={el} value={el}/>
-                    })
-                  }
-                </Select>
-              </div>
-            </React.Fragment>
-          )
-        case 'circle':
-        case 'rect':
-        case 'polygon':
-        case 'triangle':
-        case 'line':
-          return (
-            <React.Fragment>
-              <div className="tool-item">
-                填充：
-                <ColorPicker
-                  value={selectedItem.fill}
-                  onChange={props.changed.bind(this, 'fill')}
-                ></ColorPicker>
-              </div>
-              <div className="tool-item">
-                stroke：
-                <ColorPicker
-                  value={selectedItem.stroke}
-                  onChange={props.changed.bind(this, 'stroke')}
-                ></ColorPicker>
-              </div>
-            </React.Fragment>
-          )
-        default:
-          return ''
-      }
+    // 选中的元素是文本
+    const TextTool = (props) => {
+      const {activeType} = props;
+      return (
+        <div
+          className={`tool-list ${activeType === 'text' ? 'is-active' : ''}`}
+        >
+          <div className="tool-item">
+            <ColorPicker
+              value={selectedItem.fill}
+              onChange={props.changed.bind(this, 'fill')}
+            ></ColorPicker>
+          </div>
+          <div className="tool-item">
+            <Select
+              value={selectedItem.fontSize}
+              placeholder="请选择"
+              onChange={props.changed.bind(this, 'fontSize')}>
+              {
+                this.state.options.map(el => {
+                  return <Select.Option key={el} label={el} value={el}/>
+                })
+              }
+            </Select>
+          </div>
+        </div>
+      )
     }
 
+    // 选中的元素是基本图形
+    const ShapeTool = (props) => {
+      const {activeType} = props;
+      return (
+        <div
+          className={`tool-list ${activeType === 'shape' ? 'is-active' : ''}`}>
+          <div className="tool-item">
+            填充：
+            <ColorPicker
+              value={selectedItem.fill}
+              onChange={props.changed.bind(this, 'fill')}
+            ></ColorPicker>
+          </div>
+          <div className="tool-item">
+            stroke：
+            <ColorPicker
+              value={selectedItem.stroke}
+              onChange={props.changed.bind(this, 'stroke')}
+            ></ColorPicker>
+          </div>
+          <div className="tool-item">
+            <div
+              style={{width: '100px'}}>
+              <Slider
+                value={selectedItem.strokeWidth}
+                onChange={props.changed.bind(this, 'strokeWidth')}
+              ></Slider>
+            </div>
+          </div>
+        </div>
+      )
+    }
+
+    // 选中的元素是组合的工具条
+    const GroupTool = (props) => {
+      const {activeType} = props;
+      return (
+        <div
+          className={`tool-list ${activeType === 'group' ? 'is-active' : ''}`}
+        >
+          <div className="tool-item">
+            <Button
+              size="small"
+              onClick={this.props.splitGroup.bind(this)}
+            >拆分组合</Button>
+          </div>
+        </div>
+      )
+    }
+    // 多个组件选中工具条
+    const MultiTool = (props) => {
+      const {activeType} = props;
+      return (
+        <div
+          className={`tool-list ${activeType === 'items' ? 'is-active' : ''}`}
+        >
+          <div
+            className="tool-item">
+            <Button
+              size="small"
+              onClick={this.props.setGroup.bind(this)}>组合</Button>
+          </div>
+        </div>
+      )
+    }
+    // 未选中任何元素
+    const CanvasTool = (props) => {
+      const {activeType} = props;
+      return (
+        <div
+          className={`tool-list ${activeType === 'canvas' ? 'is-active' : ''}`}
+        >
+          <div className="tool-item">
+            <ColorPicker
+              onChange={this.setCanvasBgColor.bind(this)}
+            ></ColorPicker>
+          </div>
+        </div>
+      )
+    }
     const ToolBar = () => {
-      let toolItems
-      if (this.props.data && this.props.data.length) {
-        if (this.props.data.length === 1) {
+      const {data} = this.props;
+      let activeType = 'canvas'
+      if (data && data.length) {
+        if (data.length === 1) {
           // 组合
           if (selectedItem.getObjects) {
-            toolItems =
-              <div className="tool-item">
-                <Button
-                  size="small"
-                  onClick={this.props.splitGroup.bind(this)}
-                >拆分组合</Button>
-              </div>
+            activeType = 'group'
           } else {
-            toolItems = <CompBar changed={this.changed.bind(this)}></CompBar>
+            switch (selectedItem.type) {
+              case'text':
+              case'textbox':
+                activeType = 'text'
+                break;
+              case 'circle':
+              case 'rect':
+              case 'polygon':
+              case 'triangle':
+              case 'line':
+                activeType = 'shape'
+                break;
+              case 'image':
+                activeType = 'image'
+                break;
+              default:
+                break
+            }
           }
-
         } else {
-          toolItems =
-            <div className="tool-item">
-              <Button
-                size="small"
-                onClick={this.props.setGroup.bind(this)}>组合</Button>
-            </div>
+          activeType = 'items'
         }
-
-        return (
-          <React.Fragment>
-            {toolItems}
-            <CommonTool changed={this.changed.bind(this)}></CommonTool>
-          </React.Fragment>
-        )
       } else {
-        return (
-          <React.Fragment>
-            <div className="tool-item">
-              <ColorPicker
-                onChange={this.setCanvasBgColor.bind(this)}
-              ></ColorPicker>
-            </div>
-          </React.Fragment>
-        )
+        activeType = 'canvas'
       }
+
+      return (
+        <React.Fragment>
+          <CanvasTool
+            activeType={activeType}
+          ></CanvasTool>
+          <TextTool
+            activeType={activeType}
+            changed={this.changed.bind(this)}></TextTool>
+          <ShapeTool
+            activeType={activeType}
+            changed={this.changed.bind(this)}></ShapeTool>
+          <GroupTool
+            activeType={activeType}
+          ></GroupTool>
+          <MultiTool
+            activeType={activeType}
+          ></MultiTool>
+          <CommonTool
+            activeType={activeType}
+            changed={this.changed.bind(this)}></CommonTool>
+        </React.Fragment>
+      )
     }
 
 

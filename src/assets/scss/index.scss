@@ -81,6 +81,14 @@ $header-h: 60px;
   height: 100%;
 }
 
+.tool-list {
+  display: none;
+
+  &.is-active {
+    display: flex;
+  }
+}
+
 .tool-item {
   margin: 0 10px;
   display: flex;

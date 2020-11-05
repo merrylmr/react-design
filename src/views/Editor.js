@@ -119,12 +119,6 @@ class Editor extends Component {
     this.state.instance.splitGroup();
   }
 
-  changedTest(v) {
-    console.log('changedTest', v);
-    this.setState((state) => {
-      state.test = {num: v}
-    })
-  }
 
   render() {
     return (
@@ -137,7 +131,6 @@ class Editor extends Component {
             addEle={this.addEle.bind(this)}/>
           <RightSideBar
             test={this.state.test}
-            changed={this.changedTest.bind(this)}
           />
           <Stage
             instance={this.state.instance}

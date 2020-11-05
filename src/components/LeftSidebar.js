@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import '../assets/scss/leftSide.scss'
+import PropTypes from 'prop-types'
 
 class LeftSidebar extends Component {
   constructor(props) {
@@ -57,7 +58,12 @@ class LeftSidebar extends Component {
     this.props.addImg(url)
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextState !== this.state
+  }
+
   render() {
+    console.log('LeftSideBar render');
     const ShapePanel = () => {
       const shapes = [
         {
@@ -220,4 +226,9 @@ class LeftSidebar extends Component {
   }
 }
 
+LeftSidebar.prototypes = {
+  addImg: PropTypes.func,
+  addText: PropTypes.func,
+  addEle: PropTypes.func,
+}
 export default LeftSidebar

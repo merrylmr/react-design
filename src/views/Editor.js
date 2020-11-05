@@ -4,15 +4,16 @@ import LeftSidebar from '../components/LeftSidebar'
 import RightSideBar from '../components/RightSideBar'
 import Stage from '../components/Stage'
 import XFabric from '../assets/fabric/index'
+import {Modal, Button, Input} from 'antd';
 
 class Editor extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       instance: null,
-      test: {
-        num: 100
-      }
+      dialogVisible: false,
+      src: '',
+      name: 'download'
     }
   }
 
@@ -99,14 +100,6 @@ class Editor extends Component {
     const selectedItem = this.state.selectedItems[0]
     //  渲染
     this.state.instance.setActiveStyle(attr, v, selectedItem)
-
-    // selectedItem[attr] = v;
-    // this.setState((state) => {
-    //   let selectedItems = state.selectedItems
-    //   return {
-    //     selectedItems: selectedItems.splice(0, 1, selectedItem)
-    //   }
-    // })
   }
 
   setGroup() {
@@ -120,18 +113,32 @@ class Editor extends Component {
   }
 
 
+  download() {
+    const src = this.state.instance.toImage();
+    console.log('src', src);
+    this.setState({
+      dialogVisible: true,
+      src: src
+    })
+  }
+
+  changeName(e) {
+    this.setState((state) => ({
+      name: e
+    }))
+  }
+
+
   render() {
     return (
       <div id="editor">
-        <AppHeader/>
+        <AppHeader download={this.download.bind(this)}/>
         <div className="main">
           <LeftSidebar
             addImg={this.addImg.bind(this)}
             addText={this.addText.bind(this)}
             addEle={this.addEle.bind(this)}/>
-          <RightSideBar
-            test={this.state.test}
-          />
+          <RightSideBar/>
           <Stage
             instance={this.state.instance}
             selectedItems={this.state.selectedItems}
@@ -141,6 +148,31 @@ class Editor extends Component {
             splitGroup={this.splitGroup.bind(this)}
           />
         </div>
+        {/*  下载框 */}
+        <Modal
+          title="下载图片"
+          centered={true}
+          visible={this.state.dialogVisible}
+          footer={null}
+          onCancel={() => this.setState({dialogVisible: false})}
+        >
+          <div className="form-item">
+            <img
+              style={{border: '1px solid #eee'}}
+              src={this.state.src} alt="" width={100}/>
+          </div>
+          <div className="form-item">
+            <div className="form-item__label">图片名称:</div>
+            <Input
+              defaultValue={this.state.name}
+              onChange={this.changeName.bind(this)}
+              placeholder="下载文件名称"/>
+          </div>
+          <Button type="primary"
+                  onClick={() => this.setState({dialogVisible: false})}>
+            <a href={this.state.src} download={`${this.state.name}.png`}>下载</a>
+          </Button>
+        </Modal>
       </div>
     )
   }

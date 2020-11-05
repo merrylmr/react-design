@@ -26,7 +26,10 @@ class Stage extends Component {
   //   }
   // }
 
-  // shouldComponentUpdate
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.selectedItems !== this.props.selectedItems
+  }
+
   // componentWillUpdate
   // render
   // componentDidUpdate
@@ -41,6 +44,7 @@ class Stage extends Component {
   }
 
   render() {
+    console.log('Stage render1111');
     return (
       <div className="tool-main-panel">
         <div className="tool-main-panel__toolbar">

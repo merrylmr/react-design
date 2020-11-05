@@ -1,35 +1,38 @@
 import React, {Component} from 'react'
 import '../assets/scss/index.scss'
-import {Layout, Button} from 'element-react'
+import {Row, Col, Button} from 'antd';
+import PropTypes from 'prop-types'
 
 class AppHeader extends Component {
   render() {
     return (
       <div className="tool-header">
-        <Layout.Row>
-          <Layout.Col span="6">
-            <div className="logo">MERRY</div>
-          </Layout.Col>
-          <Layout.Col span="12">
-            <div className="file-name">MERRY</div>
-          </Layout.Col>
-          <Layout.Col span="6">
-            <div className="right">
-              <Button type="primary"
-                      onClick={this.clickHandle.bind(this)}>下载</Button>
-            </div>
-          </Layout.Col>
-        </Layout.Row>
-
-
+        <div className="tool-header__wrapper">
+          <Row>
+            <Col span="6">
+              <div className="logo">MERRY</div>
+            </Col>
+            <Col span="12">
+              <div className="file-name">MERRY</div>
+            </Col>
+            <Col span="6">
+              <div className="text-right">
+                <Button type="primary"
+                        onClick={this.download.bind(this)}>下载</Button>
+              </div>
+            </Col>
+          </Row>
+        </div>
       </div>
     )
   }
 
-  clickHandle() {
-    console.log('lalalal');
+  download() {
+    this.props.download()
   }
 }
 
-
+AppHeader.prototypes = {
+  download: PropTypes.func
+}
 export default AppHeader

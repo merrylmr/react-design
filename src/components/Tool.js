@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
-import {Select, ColorPicker, Popover, Slider, Button} from 'element-react'
+import {Select, Popover, Slider, Button} from 'antd';
 import PropTypes from 'prop-types'
 
+const {Option} = Select;
 
 class Tool extends Component {
   constructor(props) {
@@ -57,6 +58,17 @@ class Tool extends Component {
           nonScaling: false
         }
       };
+    const ColorPicker = (props) => {
+      return (
+        <input
+          type="color"
+          defaultValue={props.value}
+          onChange={(e) => {
+            props.onChange(e.target.value)
+          }}
+        />
+      )
+    }
     // 选中组件之后:公共工具条
     const CommonTool = (props) => {
       const {activeType} = props;
@@ -74,19 +86,20 @@ class Tool extends Component {
           <div className="tool-item">
             <Popover
               placement="bottom"
-              width="300"
               trigger="click"
               content={(
-                <div className="operate-item">
-                  <div className="operate-item__label">透明度</div>
-                  <div className="operate-item__content">
-                    <Slider
-                      min={0}
-                      max={1}
-                      step={0.01}
-                      value={selectedItem.opacity}
-                      onChange={props.changed.bind(this, 'opacity')}
-                    />
+                <div style={{width: '300px'}}>
+                  <div className="operate-item">
+                    <div className="operate-item__label">透明度</div>
+                    <div className="operate-item__content">
+                      <Slider
+                        min={0}
+                        max={1}
+                        step={0.01}
+                        defaultValue={selectedItem.opacity}
+                        onChange={props.changed.bind(this, 'opacity')}
+                      />
+                    </div>
                   </div>
                 </div>
               )}
@@ -97,10 +110,9 @@ class Tool extends Component {
           <div className="tool-item">
             <Popover
               placement="bottom"
-              width="300"
               trigger="click"
               content={(
-                <div className="operate">
+                <div className="operate" style={{width: '300px'}}>
                   <div className="operate-item">
                     <div className="operate-item__label">
                       颜色
@@ -116,7 +128,7 @@ class Tool extends Component {
                     </div>
                     <div className="operate-item__content">
                       <Slider
-                        value={shadow.blur}
+                        defaultValue={shadow.blur}
                         onChange={props.changed.bind(this, 'shadow.blur')}
                       />
                     </div>
@@ -127,7 +139,7 @@ class Tool extends Component {
                     </div>
                     <div className="operate-item__content">
                       <Slider
-                        value={shadow.offsetX}
+                        defaultValue={shadow.offsetX}
                         min={-100}
                         max={100}
                         onChange={props.changed.bind(this, 'shadow.offsetX')}
@@ -140,7 +152,7 @@ class Tool extends Component {
                     </div>
                     <div className="operate-item__content">
                       <Slider
-                        value={shadow.offsetY}
+                        defaultValue={shadow.offsetY}
                         min={-100}
                         max={100}
                         onChange={props.changed.bind(this, 'shadow.offsetY')}
@@ -175,12 +187,13 @@ class Tool extends Component {
           </div>
           <div className="tool-item">
             <Select
-              value={selectedItem.fontSize}
+              style={{width: 120}}
+              defaultValue={selectedItem.fontSize}
               placeholder="请选择"
               onChange={props.changed.bind(this, 'fontSize')}>
               {
                 this.state.options.map(el => {
-                  return <Select.Option key={el} label={el} value={el}/>
+                  return <Option key={el} label={el} value={el}/>
                 })
               }
             </Select>
@@ -213,7 +226,7 @@ class Tool extends Component {
             <div
               style={{width: '100px'}}>
               <Slider
-                value={selectedItem.strokeWidth}
+                defaultValue={selectedItem.strokeWidth}
                 onChange={props.changed.bind(this, 'strokeWidth')}
               ></Slider>
             </div>

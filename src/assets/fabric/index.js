@@ -102,6 +102,8 @@ class XFabric {
       })
         .scale(.2) // todo:需要优化
       this.canvas.add(img);
+    }, {
+      crossOrigin: 'anonymous'
     })
   }
 
@@ -299,6 +301,11 @@ class XFabric {
     // 将对象添加到画布上
     this.canvas.add(...objects);
     this.canvas.setActiveObject(...objects)
+  }
+
+  toImage(multiplier) {
+    const data = this.canvas.toDataURL({multiplier: multiplier, format: 'png'});
+    return data
   }
 }
 

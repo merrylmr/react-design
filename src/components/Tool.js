@@ -279,6 +279,9 @@ class Tool extends Component {
               onChange={this.setCanvasBgColor.bind(this)}
             ></ColorPicker>
           </div>
+          <div className="tool-item">
+            <Button onClick={props.setZoom.bind(this)}> 1:1</Button>
+          </div>
         </div>
       )
     }
@@ -320,6 +323,7 @@ class Tool extends Component {
       return (
         <React.Fragment>
           <CanvasTool
+            setZoom={this.props.setZoom.bind(this)}
             activeType={activeType}
           ></CanvasTool>
           <TextTool
@@ -354,6 +358,7 @@ Tool.prototypes = {
   data: PropTypes.array,
   setGroup: PropTypes.func,
   splitGroup: PropTypes.func,
+  setZoom: PropTypes.func,
 }
 Tool.defaultProps = {
   data: []

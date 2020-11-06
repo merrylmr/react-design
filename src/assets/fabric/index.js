@@ -5,7 +5,6 @@ const primaryColor = '#20a0ff';
 class XFabric {
   constructor(id) {
     this.canvas = new fabric.Canvas(id);
-
   }
 
   renderCanvas() {
@@ -306,6 +305,39 @@ class XFabric {
   toImage(multiplier) {
     const data = this.canvas.toDataURL({multiplier: multiplier, format: 'png'});
     return data
+  }
+
+  setZoom(v) {
+    const center = this.canvas.getVpCenter()
+    // const center = this.canvas.getCenter()
+    console.log('center', center, this.canvas);
+    this.canvas.zoomToPoint(center, v || 1);
+    // this.canvas.setWidth(800);
+  }
+
+  // 水平垂直居中
+  centerObject(obj) {
+  }
+
+  centerObjectH() {
+
+  }
+
+  centerObjectV() {
+
+  }
+
+  // 全部删除
+  clear() {
+
+  }
+
+  clearContext() {
+
+  }
+
+  getCenter() {
+
   }
 }
 

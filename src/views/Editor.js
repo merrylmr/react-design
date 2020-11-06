@@ -13,7 +13,8 @@ class Editor extends Component {
       instance: null,
       dialogVisible: false,
       src: '',
-      name: 'download'
+      name: 'download',
+      zoom: 1
     }
   }
 
@@ -88,9 +89,24 @@ class Editor extends Component {
         selectedItems: [],
       })
     })
+
+    instance.canvas.on('mouse:wheel', (opt) => {
+      const delta = opt.e.deltaY;
+      let zoom = instance.canvas.getZoom();
+      zoom *= 0.999 ** delta;
+      if (zoom > 20) zoom = 20;
+      if (zoom < 0.01) zoom = 0.01;
+      console.log('offsetX', opt.e.offsetX, opt.e.offsetY)
+      instance.canvas.zoomToPoint({x: opt.e.offsetX, y: opt.e.offsetY}, zoom);
+      opt.e.preventDefault();
+      opt.e.stopPropagation();
+
+    })
+
     this.setState((state) => ({
       instance: instance
     }))
+
   }
 
   changed({attr, v}) {
@@ -128,6 +144,9 @@ class Editor extends Component {
     }))
   }
 
+  setZoom() {
+    this.state.instance.setZoom(1);
+  }
 
   render() {
     return (
@@ -141,11 +160,13 @@ class Editor extends Component {
           <RightSideBar/>
           <Stage
             instance={this.state.instance}
+            zoom={this.state.zoom}
             selectedItems={this.state.selectedItems}
             deleteItem={this.deleteItem.bind(this)}
             changed={this.changed.bind(this)}
             setGroup={this.setGroup.bind(this)}
             splitGroup={this.splitGroup.bind(this)}
+            setZoom={this.setZoom.bind(this)}
           />
         </div>
         {/*  下载框 */}

@@ -44,7 +44,8 @@ class Stage extends Component {
   }
 
   render() {
-    console.log('Stage render1111');
+    const {zoom} = this.props;
+    console.log('Stage render1111', zoom);
     return (
       <div className="tool-main-panel">
         <div className="tool-main-panel__toolbar">
@@ -53,6 +54,7 @@ class Stage extends Component {
             changed={this.props.changed}
             setGroup={this.props.setGroup}
             splitGroup={this.props.splitGroup}
+            setZoom={this.props.setZoom}
             deleteItem={this.props.deleteItem.bind(this)}
             setCanvasBgColor={this.setCanvasBgColor.bind(this)}
           ></Tool>
